@@ -3,7 +3,7 @@ import Vue from 'vue'
 Vue.use(Vuex)
 
 // vue配置
-let store = new Vuex({
+let store = new Vuex.Store({
   state: {},
   mutations: {},
   actions: {}
