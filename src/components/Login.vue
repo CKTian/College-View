@@ -38,7 +38,7 @@ export default {
             this.$http.defaults.headers.common['Authorization'] = result.token
             // --把信息放到vuex中
             this.$store.commit('userInfo', result.userinfo)
-            location.href = '#/Home/Wtb'
+            location.href = '#/home/Wtb'
           } else {
             this.$message({
               showClose: true,

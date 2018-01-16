@@ -13,11 +13,11 @@ export default new Router({
       component: Login
     },
     {
-      path: '/Home',
+      path: '/home',
       name: 'Home',
       component: Home,
       children: [{
-        path: '/Home/Wtb',
+        path: '/home/Wtb',
         name: 'Wtb',
         component: Wtb
       }]

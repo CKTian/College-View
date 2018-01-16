@@ -28,13 +28,14 @@ export default {
       if (vm.$http.defaults.headers.common['Authorization'] === undefined) {
         if (localStorage.getItem('token') !== null) {
           vm.$http.defaults.headers.common['Authorization'] = localStorage.getItem('token')
-          vm.$http.post('/Home/GetTokenController/token.do').then(
+          vm.$http.post('/home/GetTokenController/token.do').then(
             response => {
               let result = response.data
+              console.log(result)
               // 判断 状态
               if (result.status.value === '1') {
               // 成功->把信息存入vuex--------------------------------------------------------------------
-                vm.$store.commit('userInfo', {id: result.id, account: result.account, role_id: result.role_id})
+                vm.$store.commit('userInfo', result.userMap)
               } else {
                 // 失败->
                 vm.$http.defaults.headers.common['Authorization'] = ''
