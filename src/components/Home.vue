@@ -7,6 +7,7 @@
     </div>
     <div class="home-show" 
          :style="{'left':homeShow.style.left,'width':homeShow.style.width}">
+      <i class="iconfont icon-shouye9 tofirst" @click="toFirst()"></i>
       <router-view/>
     </div>
   </div>
@@ -106,6 +107,9 @@ export default {
           location.href = '/#/'
         }
       }
+    },
+    toFirst () {
+      location.href = '/#/home/First'
     }
   },
   /**
@@ -134,13 +138,18 @@ export default {
   transition: .2s;
 }
 .home-show {
-  height: calc(100% - 50px);
-  padding: 8px 1% 0;
+  padding: 8px 1% 20px;
   background: #F5F6F7;
   position: absolute;
   transition: .2s;
   left: 0;
   box-sizing: border-box;
-  
+}
+i:hover{
+  cursor: pointer;
+}
+.tofirst{
+  position: absolute;
+  right: 0;
 }
 </style>

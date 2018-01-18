@@ -16,9 +16,9 @@
             :style="{'transform': arrRotate(li)}" 
             不想旋转就去掉
           -->
-          <i v-if='li.children.length != 0' 
-            :style="{'transform': arrRotate(li)}" 
-            class='iconfont icon-more'></i>
+          <i class='iconfont' 
+            :class="li.iconClass"
+            :style="{'transform': arrRotate(li)}"></i>
           <span :style="{'display': navUnflod ? 'inline' : 'none'}">{{li.liName}}</span>
         </a>
         <ul class='child-ul'>
@@ -40,7 +40,7 @@
 
 <script>
 // max为a的line-height + padding
-const maxHeight = '40px'
+const maxHeight = '46px'
 export default {
   name: 'navQ',
   data () {
@@ -60,14 +60,14 @@ export default {
         activeLi.maxHeight = maxHeight
       } else {
         if (activeLi.children.length === 0) {
-          // 跳转
+          location.href = activeLi.liHref
         } else {
           this.navData.forEach(item => {
             item.isShowChild = false
             item.maxHeight = maxHeight
           })
           // 一个是21px
-          activeLi.maxHeight = `${(activeLi.children.length + 1) * 42}px`
+          activeLi.maxHeight = `${(activeLi.children.length + 1) * parseInt(maxHeight)}px`
           activeLi.isShowChild = !activeLi.isShowChild
         }
       }
@@ -123,7 +123,7 @@ export default {
   box-sizing: border-box;
   color: rgb(193, 201, 206);
   font-size: 14px;
-  line-height: 12px;
+  line-height: 14px;
 }
 .change-button {
   height: 30px;  width: 100%;
@@ -153,20 +153,21 @@ export default {
 }
 /* .nav li:hover {
   background: #232a2f;
-} */
+} 
 .nav a:link,
 .nav a:valid,
 .nav a:hover,
 .nav a:active {
  
-}
+}*/
 .nav a {
   display: block;
-  padding: 14px 0 14px 10px;
+  padding: 16px 0 16px 10px;
 }
 .nav li i {
   display: inline-block;
   width: 30px;
+  margin-right: 12px;
   text-align: center;
   transition: 0.3s;
 }
@@ -202,6 +203,8 @@ export default {
 }
 .child-li:hover a{
   color: #FF905C;
+}
+.child-li a{
   left: 22px;
 }
 </style>

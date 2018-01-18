@@ -21,7 +21,8 @@ export default {
         id: '',
         account: '',
         password: '',
-        role_id: ''
+        role_id: '',
+        gender: ''
       }
     }
   },

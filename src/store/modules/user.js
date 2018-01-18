@@ -3,14 +3,16 @@ export default {
   state: {
     id: '',
     account: '',
-    role_id: ''
+    role_id: '',
+    gender: ''
   },
   mutations: {
     userInfo (state, user) {
       state.id = user.id
       state.account = user.account
       state.role_id = user.role_id
-      console.log(state.account)
+      state.gender = user.gender
+      console.log(state.gender)
     }
   },
   actions: {}
