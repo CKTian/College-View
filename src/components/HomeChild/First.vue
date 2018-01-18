@@ -6,7 +6,7 @@
     <h4>What do you want to do now？</h4>
     <div class="quick">
       <div class="row">
-        <div class="cell" @click="toRouterView('/#/home/Userinfo')">
+        <div class="cell" @click="toRouterView('/#/home/ManageUserinfo')">
           <i class="iconfont icon-dianping"></i>
           <p>个人信息管理</p>
           <p class="pChild">点击进入个人信息模块，修改个人基本信息</p>

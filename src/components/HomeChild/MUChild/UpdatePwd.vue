@@ -1,0 +1,85 @@
+<!-- 修改密码组件 -->
+<template>
+  <div class="kuang">
+     <i class="iconfont icon-vertical_line"></i>
+    修改密码
+    <p> {{this.name}},您好：</p>
+    <el-input v-model='newPwd' placeholder="新密码" ></el-input>
+    <el-input v-model="makeSurePwd" placeholder="再次输入" type="password"></el-input>
+    <el-button @click="returnView('/#/home/ManageUserinfo')" type="info" plain >取消</el-button>
+    <el-button @click="changePwd()" class="checkin" plain>提交</el-button>
+  </div>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      name: '',
+      id: '',
+      newPwd: '',
+      makeSurePwd: ''
+    }
+  },
+  components: {},
+  computed: {
+    // 获取用户基本信息的用户名
+    getUserName () {
+      return this.$store.state.BasicInfo.name
+    },
+    // 获取用户id
+    getUserId () {
+      console.log(this.$store.state.User.id)
+      return this.$store.state.User.id
+    }
+  },
+  methods: {
+    returnView (returnHref) {
+      location.href = returnHref
+    },
+    getVuexInfo () {
+      //  获取登陆者姓名
+      let userName = this.getUserName
+      this.name = userName
+      // 获取登陆者的id
+      let Userid = this.getUserId
+      this.id = Userid
+    },
+    changePwd () { // 更改密码
+      // 判断两次的密码是否一致
+      // 根据id 去修改
+      this.$http.post('/home/StudentController/updatePwd.do', {pwd: this.newPwd}).then(
+        response => {
+          if (response.value === '1') {
+            // 修改成功
+          }
+        }
+      ).catch(
+        error => {
+          console.log(error)
+          console.log('修改密码错啦')
+        }
+      )
+    }
+  },
+  beforeMount () {
+    // 获取信息
+    this.getVuexInfo()
+  }
+}
+</script>
+<style scoped>
+.kuang{
+  width: 30%;
+  border: 1px black solid;
+  margin-top: 10px;
+  float: right;
+}
+.icon-vertical_line{
+  font-weight: 900;
+  color: #FF905C;
+}
+.checkin{
+  background-color: #2BC4B7;
+}
+</style>
