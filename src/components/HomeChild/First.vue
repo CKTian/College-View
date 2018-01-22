@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="cell">
+        <div class="cell" @click="toRouterView('/#/home/AllCourse')">
           <i class="iconfont icon-youji"></i>
           <p>查看全部课程</p>
           <p class="pChild">点击进入学校课程信息模块，查看学校所有开设的课程信息</p>

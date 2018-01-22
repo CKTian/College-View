@@ -1,10 +1,10 @@
 <!-- 修改密码组件 -->
 <template>
   <div class="kuang">
-     <i class="iconfont icon-vertical_line"></i>
+    <i class="iconfont icon-vertical_line"></i>
     修改密码
-    <p> {{this.name}},您好：</p>
-    <el-input v-model='newPwd' placeholder="新密码" ></el-input>
+    <p> {{getUserName}},您好：</p>
+    <el-input v-model='newPwd' placeholder="新密码" type="password"></el-input>
     <el-input v-model="makeSurePwd" placeholder="再次输入" type="password"></el-input>
     <el-button @click="returnView('/#/home/ManageUserinfo')" type="info" plain >取消</el-button>
     <el-button @click="changePwd()" class="checkin" plain>提交</el-button>
@@ -50,8 +50,14 @@ export default {
       // 根据id 去修改
       this.$http.post('/home/StudentController/updatePwd.do', {pwd: this.newPwd}).then(
         response => {
-          if (response.value === '1') {
+          if (response.data.value === '1') {
+            location.href = '/'
             // 修改成功
+            this.$notify({
+              title: 'ok~',
+              message: '密码修改成功,请重新登录',
+              type: 'success'
+            })
           }
         }
       ).catch(
@@ -64,6 +70,7 @@ export default {
   },
   beforeMount () {
     // 获取信息
+    console.log('pwd')
     this.getVuexInfo()
   }
 }

@@ -10,6 +10,10 @@ import First from '@/components/HomeChild/First'
 import ManageUserinfo from '@/components/HomeChild/ManageUserinfo'
 // 修改密码组件
 import UpdatePwd from '@/components/HomeChild/MUChild/UpdatePwd'
+// 修改个人基本信息组件
+import UpdateBasicInfo from '@/components/HomeChild/MUChild/UpdateBasicInfo'
+// 查看全部课程的vue
+import AllCourse from '@/components/HomeChild/AllCourse'
 Vue.use(Router)
 
 export default new Router({
@@ -29,6 +33,11 @@ export default new Router({
         component: First
       },
       {
+        path: '/home/AllCourse',
+        name: 'AllCourse',
+        component: AllCourse
+      },
+      {
         path: '/home/ManageUserinfo',
         name: 'ManageUserinfo',
         component: ManageUserinfo,
@@ -36,6 +45,11 @@ export default new Router({
           path: '/home/ManageUserinfo/UpdatePwd',
           name: 'UpdatePwd',
           component: UpdatePwd
+        },
+        {
+          path: '/home/ManageUserinfo/UpdateBasicInfo',
+          name: 'UpdateBasicInfo',
+          component: UpdateBasicInfo
         }]
       }]
     }

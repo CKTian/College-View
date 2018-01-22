@@ -14,6 +14,9 @@ export default {
       state.tel = basic.student.tel
       state.reward = basic.student.reward
       state.point = basic.student.point
+    },
+    changeTel (state, val) {
+      state.tel = val
     }
   },
   actions: {}

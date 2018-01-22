@@ -9,13 +9,13 @@
       <el-button class="updatePwdButton" type="text" @click="toShowMUChild('/#/home/ManageUserinfo/UpdatePwd')">修改密码</el-button>
     </div>
     <i class="iconfont icon-icon11"></i>
-    <el-button class="updateInfoButton" type="text">修改个人</el-button>
+    <el-button class="updateInfoButton" type="text" @click="toShowMUChild('/#/home/ManageUserinfo/UpdateBasicInfo')">修改个人</el-button>
     <div class="basicInfo">
       <p>姓名：{{student.name}}</p>
-      <p>用户名：{{account}}</p>
+      <p>用户名：{{getAccount}}</p>
       <p>班级: {{team_name}}</p>
-      <p>性别：{{gender}}</p>
-      <p>电话：{{student.tel}}</p>
+      <p>性别：{{getGender}}</p>
+      <p>电话：{{getTel}}</p>
       <p>奖惩：{{student.reward}}</p>
       <p>学分：{{student.point}}</p>
     </div> 
@@ -52,8 +52,19 @@ export default {
     getAccount () {
       return this.$store.state.User.account
     },
-    getGender () {
-      return this.$store.state.User.gender
+    getTel () {
+      return this.$store.state.BasicInfo.tel
+    },
+    getGender: {
+      get: function () {
+        if (this.$store.state.User.gender === 0) {
+          return '男'
+        } else if (this.$store.state.User.gender === 1) {
+          return '女'
+        }
+      },
+      set: function () {
+      }
     }
   },
   methods: {
@@ -75,9 +86,9 @@ export default {
           let result = response.data
           this.student = result.student
           this.team_name = result.team_name
-          console.log('111' + this.student.name)
           // 把信息放到vuex中
           this.$store.commit('basicInfo', {student: result.student, team_name: result.team_name})
+          console.log('UserInfo' + result.student)
         }
       ).catch(
         error => {
@@ -86,29 +97,16 @@ export default {
         }
       )
     },
-    checkSex (sex) {
-      if (sex === 0) {
-        this.gender = '男'
-      } else {
-        this.gender = '女'
-      }
-    },
     toShowMUChild (MUChildHref) {
       location.href = MUChildHref
     }
-  },
-  beforeRouteEnter (to, from, next) { // 守卫
-    next(vm => {
-      vm.selectUserinfo(vm)
-    })
   },
   beforeMount () {
     // 获取vuex中当前登录用户的权限值
     let roleId = this.getRole_id
     this.account = this.getAccount // 调用计算方法 拿用户名
     let sex = this.getGender // 拿性别
-    // 判断性别
-    this.checkSex(sex)
+    console.log(sex)
     // 显示头像
     this.changeHeadIcon(roleId)
     // 根据id 查询个人信息

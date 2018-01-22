@@ -13,6 +13,9 @@ export default {
       state.role_id = user.role_id
       state.gender = user.gender
       console.log(state.gender)
+    },
+    changeGender (state, val) {
+      state.gender = val
     }
   },
   actions: {}

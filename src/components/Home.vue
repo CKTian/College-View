@@ -8,6 +8,7 @@
     <div class="home-show" 
          :style="{'left':homeShow.style.left,'width':homeShow.style.width}">
       <i class="iconfont icon-shouye9 tofirst" @click="toFirst()"></i>
+      <i class="iconfont icon-out tologin" @click="toLogin()"></i>
       <router-view/>
     </div>
   </div>
@@ -110,6 +111,11 @@ export default {
     },
     toFirst () {
       location.href = '/#/home/First'
+    },
+    toLogin () {
+      this.$http.defaults.headers.common['Authorization'] = ''
+      window.localStorage.clear()
+      location.href = '/'
     }
   },
   /**
@@ -126,6 +132,7 @@ export default {
    * mount之前
    */
   beforeMount () {
+    console.log('守卫')
     this.judgeToken(this)
   }
 }
@@ -151,5 +158,12 @@ i:hover{
 .tofirst{
   position: absolute;
   right: 0;
+  font-size: 20px;
+  font-weight: 800;
+}
+.tologin{
+  float: right;
+  margin-right: 10px;
+  font-size: 20px;
 }
 </style>
