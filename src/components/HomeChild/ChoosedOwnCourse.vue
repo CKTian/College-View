@@ -1,15 +1,15 @@
-<!-- 查看全部课程的vue -->
+<!-- 查看登陆者的所有选课 -->
 <template>
   <div class="kuang">
-    <i class="iconfont icon-vertical_line"></i>查看全部课程
-    <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" style="width: 45%" @selection-change="handleSelectionChange">
+    <i class="iconfont icon-vertical_line"></i>查看我的选课
+    <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" style="width: 80%" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column prop="name" label="课程名" width="120"></el-table-column>
-      <el-table-column prop="teacher.name" label="任课老师" width="120"></el-table-column>
-      <el-table-column prop="time" label="上课时间" show-overflow-tooltip></el-table-column>
+      <el-table-column prop="course.name" label="课程名" width="120"></el-table-column>
+      <el-table-column prop="course.teacher.name" label="任课老师" width="120"></el-table-column>
+      <el-table-column prop="course.time" label="上课时间" show-overflow-tooltip></el-table-column>
     </el-table>
       <el-button @click="toggleSelection()" type="info"  plain >全部取消</el-button>
-      <el-button @click="toSelect()" class="checkin" plain>选择</el-button>
+      <el-button @click="toDelete()" class="checkin" plain>删除选课</el-button>
   </div>
 </template>
 
@@ -37,53 +37,42 @@ export default {
       window.a = val
       this.multipleSelection = val
     },
-    toSelect () {
-      console.log(this.multipleSelection)
-      this.$http.post('/home/StudentController/selectCourse.do', {list: this.multipleSelection}).then(
+    toDelete () {
+      this.$http.post('/home/StudentController/deleteChoosedCourse.do', {list: this.multipleSelection}).then(
         response => {
           let result = response.data
           if (result.value === '1') {
             this.$notify({
               title: 'ok~',
-              message: '添加成功',
+              message: '删除成功！',
               type: 'success'
             })
+            location.href = '/#/home/ChoosedOwnCourse'
           }
         }
       ).catch(
         error => {
           console.log(error)
-          console.log('查询全部课程出错啦')
+          console.log('查询我的选课出错啦')
         }
       )
     }
   },
   beforeMount () {
-    // 查询全部课程信息
-    this.$http.post('/home/StudentController/selectAllCourse.do').then(
+    // 查询出所有登录者的选课
+    this.$http.post('/home/StudentController/selectChoosedList.do').then(
       response => {
         let result = response.data
-        // result.forEach(value => {
-        //   value.isActive = false
-        // })
         this.tableData = result
       }
     ).catch(
       error => {
         console.log(error)
-        console.log('查询全部课程出错啦')
+        console.log('查询我的选课出错啦')
       }
     )
   }
 }
 </script>
 <style scoped>
-
-.icon-vertical_line{
-  font-weight: 900;
-  color: #FF905C;
-}
-.checkin{
-  background-color: #2BC4B7;
-}
 </style>

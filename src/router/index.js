@@ -14,6 +14,8 @@ import UpdatePwd from '@/components/HomeChild/MUChild/UpdatePwd'
 import UpdateBasicInfo from '@/components/HomeChild/MUChild/UpdateBasicInfo'
 // 查看全部课程的vue
 import AllCourse from '@/components/HomeChild/AllCourse'
+// 查看登陆者的所有选课
+import ChoosedOwnCourse from '@/components/HomeChild/ChoosedOwnCourse'
 Vue.use(Router)
 
 export default new Router({
@@ -36,6 +38,11 @@ export default new Router({
         path: '/home/AllCourse',
         name: 'AllCourse',
         component: AllCourse
+      },
+      {
+        path: '/home/ChoosedOwnCourse',
+        name: 'ChoosedOwnCourse',
+        component: ChoosedOwnCourse
       },
       {
         path: '/home/ManageUserinfo',
