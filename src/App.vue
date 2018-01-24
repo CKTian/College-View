@@ -31,4 +31,7 @@ a {
 body,html{
   width: 100%; height: 100%;
 }
+.hidden {
+  display: none;
+}
 </style>

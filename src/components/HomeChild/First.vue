@@ -11,7 +11,7 @@
           <p>个人信息管理</p>
           <p class="pChild">点击进入个人信息模块，修改个人基本信息</p>
         </div>
-        <div class="cell">
+        <div class="cell" @click="toRouterView('/#/home/AllTeacher')">
           <i class="iconfont icon-geren"></i>
           <p>查看全部老师</p>
           <p class="pChild">点击进入学校老师信息模块，查看所有在校老师信息</p>

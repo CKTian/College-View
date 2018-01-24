@@ -16,6 +16,8 @@ import UpdateBasicInfo from '@/components/HomeChild/MUChild/UpdateBasicInfo'
 import AllCourse from '@/components/HomeChild/AllCourse'
 // 查看登陆者的所有选课
 import ChoosedOwnCourse from '@/components/HomeChild/ChoosedOwnCourse'
+// 查看所有老师的信息
+import AllTeacher from '@/components/HomeChild/AllTeacher'
 Vue.use(Router)
 
 export default new Router({
@@ -38,6 +40,11 @@ export default new Router({
         path: '/home/AllCourse',
         name: 'AllCourse',
         component: AllCourse
+      },
+      {
+        path: '/home/AllTeacher',
+        name: 'AllTeacher',
+        component: AllTeacher
       },
       {
         path: '/home/ChoosedOwnCourse',

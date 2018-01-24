@@ -37,8 +37,23 @@ export default {
             // 登录成功--把token放到请求头里
             localStorage.setItem('token', result.token)
             this.$http.defaults.headers.common['Authorization'] = result.token
+            // 根据登录者的权限分配路由
+            // 查询个人基本信息--并存入到vuex
+            let router = ''
+            if (result.userinfo.role_id === 0) {
+              router = '/home/SuperController/'
+            } else if (result.userinfo.role_id === 1) {
+              router = '/home/TeacherController/'
+              this.selectTeacherUserinfo(router)
+            } else if (result.userinfo.role_id === 2) {
+              router = '/home/StudentController/'
+              this.selectStudentUserinfo(router)
+            }
             // --把信息放到vuex中
-            this.$store.commit('userInfo', result.userinfo)
+            this.$store.commit('userInfo', {
+              user: result.userinfo,
+              router
+            })
             location.href = '#/home/First'
           } else {
             this.$message({
@@ -52,6 +67,35 @@ export default {
         error => {
           console.log(error)
           console.log('出登录错啦')
+        }
+      )
+    },
+    selectStudentUserinfo (router) { // 查询学生个人基本信息
+      this.$http.post(`${router}getBasicInfo.do`).then(
+        response => {
+          let result = response.data
+          // 把信息放到vuex中
+          this.$store.commit('basicInfo', {student: result.student, team_name: result.team_name})
+        }
+      ).catch(
+        error => {
+          console.log(error)
+          console.log('查询个人信息错啦')
+        }
+      )
+    },
+    selectTeacherUserinfo (router) { // 查询老师个人基本信息
+      this.$http.post(`${router}getBasicInfo.do`).then(
+        response => {
+          let result = response.data
+          console.log(result)
+          // 把信息放到vuex中
+          this.$store.commit('tBasicInfo', result)
+        }
+      ).catch(
+        error => {
+          console.log(error)
+          console.log('查询个人信息错啦')
         }
       )
     }

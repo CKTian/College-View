@@ -11,13 +11,13 @@
     <i class="iconfont icon-icon11"></i>
     <el-button class="updateInfoButton" type="text" @click="toShowMUChild('/#/home/ManageUserinfo/UpdateBasicInfo')">修改个人</el-button>
     <div class="basicInfo">
-      <p>姓名：{{student.name}}</p>
-      <p>用户名：{{getAccount}}</p>
-      <p>班级: {{team_name}}</p>
+      <p>姓名：{{getBasicInfo.name}}</p>
+      <p>用户名：{{getUser.account}}</p>
+      <p>班级: {{getBasicInfo.team_name}}</p>
       <p>性别：{{getGender}}</p>
-      <p>电话：{{getTel}}</p>
-      <p>奖惩：{{student.reward}}</p>
-      <p>学分：{{student.point}}</p>
+      <p>电话：{{getBasicInfo.tel}}</p>
+      <p>奖惩：{{getBasicInfo.reward}}</p>
+      <p>学分：{{getBasicInfo.point}}</p>
     </div> 
   </div>
 </template>
@@ -43,17 +43,14 @@ export default {
   },
   components: {},
   computed: {
-    getRole_id () {
-      return this.$store.state.User.role_id
+    getUser () {
+      // 这里我们渲染图片
+      this.changeHeadIcon(this.$store.state.User.role_id)
+      // 获取vuex中存储的值
+      return this.$store.state.User
     },
-    getId () {
-      return this.$store.state.User.id
-    },
-    getAccount () {
-      return this.$store.state.User.account
-    },
-    getTel () {
-      return this.$store.state.BasicInfo.tel
+    getBasicInfo () {
+      return this.$store.state.BasicInfo
     },
     getGender: {
       get: function () {
@@ -75,42 +72,14 @@ export default {
       } else if (roleId === 1) {
         // 老师
         this.iconHref = '#icon-nvshi'
-      } else {
+      } else if (roleId === 2) {
         // 同学
         this.iconHref = '#icon-nvtongxue'
       }
     },
-    selectUserinfo () { // 查询个人基本信息
-      this.$http.post('/home/StudentController/getBasicInfo.do').then(
-        response => {
-          let result = response.data
-          this.student = result.student
-          this.team_name = result.team_name
-          // 把信息放到vuex中
-          this.$store.commit('basicInfo', {student: result.student, team_name: result.team_name})
-          console.log('UserInfo' + result.student)
-        }
-      ).catch(
-        error => {
-          console.log(error)
-          console.log('查询个人信息错啦')
-        }
-      )
-    },
     toShowMUChild (MUChildHref) {
       location.href = MUChildHref
     }
-  },
-  beforeMount () {
-    // 获取vuex中当前登录用户的权限值
-    let roleId = this.getRole_id
-    this.account = this.getAccount // 调用计算方法 拿用户名
-    let sex = this.getGender // 拿性别
-    console.log(sex)
-    // 显示头像
-    this.changeHeadIcon(roleId)
-    // 根据id 查询个人信息
-    this.selectUserinfo()
   }
 }
 </script>

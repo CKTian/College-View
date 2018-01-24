@@ -2,9 +2,9 @@
 <template>
   <div>
     <div class="m-userinfo">
-      <Userinfo></Userinfo>
+      <Userinfo ></Userinfo>
     </div>
-    <div class="m-updatePwd">
+    <div class="m-update">
         <router-view/>
     </div>
   </div>

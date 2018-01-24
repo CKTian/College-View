@@ -1,4 +1,4 @@
-// 用户基本信息变量储存
+// 学生用户基本信息变量储存
 export default {
   state: {
     name: '',
