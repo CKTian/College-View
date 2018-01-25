@@ -8,7 +8,7 @@ export default {
       state.basicInfo = basic
     },
     changeTel (state, val) {
-      state.tel = val
+      state.basicInfo[5].value = val
     }
   },
   actions: {}

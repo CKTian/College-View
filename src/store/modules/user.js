@@ -17,6 +17,7 @@ export default {
       console.log(state.router)
     },
     changeGender (state, val) {
+      console.log(val)
       state.gender = val
     }
   },

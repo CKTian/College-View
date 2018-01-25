@@ -3,7 +3,7 @@
   <div class="kuang">
     <i class="iconfont icon-vertical_line"></i>
     修改密码
-    <p> {{getUserName}},您好：</p>
+    <p> {{getUserBasic}},您好：</p>
     <el-input v-model='newPwd' placeholder="新密码" type="password"></el-input>
     <el-input v-model="makeSurePwd" placeholder="再次输入" type="password"></el-input>
     <el-button @click="returnView('/#/home/ManageUserinfo')" type="info" plain >取消</el-button>
@@ -24,26 +24,13 @@ export default {
   components: {},
   computed: {
     // 获取用户基本信息的用户名
-    getUserName () {
-      return this.$store.state.BasicInfo.name
-    },
-    // 获取用户id
-    getUserId () {
-      console.log(this.$store.state.User.id)
-      return this.$store.state.User.id
+    getUserBasic () {
+      return this.$store.state.BasicInfo.basicInfo[2].value
     }
   },
   methods: {
     returnView (returnHref) {
       location.href = returnHref
-    },
-    getVuexInfo () {
-      //  获取登陆者姓名
-      let userName = this.getUserName
-      this.name = userName
-      // 获取登陆者的id
-      let Userid = this.getUserId
-      this.id = Userid
     },
     changePwd () { // 更改密码
       // 判断两次的密码是否一致
@@ -67,11 +54,6 @@ export default {
         }
       )
     }
-  },
-  beforeMount () {
-    // 获取信息
-    console.log('pwd')
-    this.getVuexInfo()
   }
 }
 </script>

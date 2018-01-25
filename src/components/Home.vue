@@ -90,15 +90,15 @@ export default {
               if (result.status.value === '1') {
                 // 根据登录者的权限分配路由
                 let router = ''
-                if (result.userInfo.role_id === 0) {
+                if (result.loginInfo.userinfo.role_id === 0) {
                   router = '/home/SuperController/'
-                } else if (result.userInfo.role_id === 1) {
+                } else if (result.loginInfo.userinfo.role_id === 1) {
                   router = '/home/TeacherController/'
-                } else if (result.userInfo.role_id === 2) {
+                } else if (result.loginInfo.userinfo.role_id === 2) {
                   router = '/home/StudentController/'
                 }
                 // 成功->把信息存入vuex
-                vm.$store.commit('userInfo', {user: result.userInfo, router})
+                vm.$store.commit('userInfo', {user: result.loginInfo.userinfo, router})
                 vm.$store.commit('basicInfo', result.basicInfoList)
               } else if (result.status.value === '0') {
                 // 失败->

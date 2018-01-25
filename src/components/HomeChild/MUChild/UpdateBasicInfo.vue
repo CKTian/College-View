@@ -3,7 +3,7 @@
   <div class="kuang">
      <i class="iconfont icon-vertical_line"></i>
     修改个人信息
-    <p> {{genderBasicName}},您好：</p>
+    <p> {{getUserBasic}},您好：</p>
     电话：<el-input  v-model="genderBasicTel" ></el-input>
     性别：<el-radio-group v-model="getUserGender">
             <el-radio :label="0">男</el-radio>
@@ -26,23 +26,31 @@ export default {
   },
   components: {},
   computed: {
-    getUserId () {
-      return this.$store.state.User.id
+     // 获取用户基本信息的用户名
+    getUserBasic () {
+      return this.$store.state.BasicInfo.basicInfo[2].value
     },
     getUserGender: {
       get: function () {
-        return this.$store.state.User.gender
+        let gender
+        if (this.$store.state.BasicInfo.basicInfo[3].value === '男') {
+          gender = 0
+        } else if (this.$store.state.BasicInfo.basicInfo[3].value === '女') {
+          gender = 1
+        } else if (this.$store.state.BasicInfo.basicInfo[3].value === 0) {
+          gender = 0
+        } else if (this.$store.state.BasicInfo.basicInfo[3].value === 1) {
+          gender = 1
+        }
+        return gender
       },
       set: function (val) {
         this.$store.commit('changeGender', val)
       }
     },
-    genderBasicName () {
-      return this.$store.state.BasicInfo.name
-    },
     genderBasicTel: {
       get: function () {
-        return this.$store.state.BasicInfo.tel
+        return this.$store.state.BasicInfo.basicInfo[5].value
       },
       set: function (val) {
         this.$store.commit('changeTel', val)
@@ -50,16 +58,6 @@ export default {
     }
   },
   methods: {
-    getVuexInfo () { // 获取vuex的值
-      let userId = this.getUserId
-      this.id = userId
-      let userGender = this.getUserGender
-      this.gender = userGender
-      let userName = this.genderBasicName
-      this.name = userName
-      let userTel = this.genderBasicTel
-      this.tel = userTel
-    },
     returnView (returnHref) {
       location.href = returnHref
     },
@@ -83,10 +81,6 @@ export default {
         }
       )
     }
-  },
-  beforeMount () {
-    // 获取信息绑定
-    this.getVuexInfo()
   }
 }
 </script>

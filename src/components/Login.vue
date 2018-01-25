@@ -31,7 +31,7 @@ export default {
       this.$http.post('LoginController/userLogin.do', this.user).then(
         response => {
           let result = response.data
-          console.log(result)
+          console.log(response)
           if (result.status.value === '1') {
             // 登录成功--把token放到请求头里
             localStorage.setItem('token', result.token)
