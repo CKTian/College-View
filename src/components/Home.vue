@@ -85,22 +85,21 @@ export default {
           vm.$http.post('/home/GetTokenController/token.do').then(
             response => {
               let result = response.data
-              console.log(response)
+              console.log(result)
               // 判断 状态
               if (result.status.value === '1') {
                 // 根据登录者的权限分配路由
                 let router = ''
-                if (result.userMap.role_id === 0) {
+                if (result.userInfo.role_id === 0) {
                   router = '/home/SuperController/'
-                } else if (result.userMap.role_id === 1) {
+                } else if (result.userInfo.role_id === 1) {
                   router = '/home/TeacherController/'
-                  this.selectTeacherUserinfo(router)
-                } else if (result.userMap.role_id === 2) {
+                } else if (result.userInfo.role_id === 2) {
                   router = '/home/StudentController/'
-                  this.selectStudentUserinfo(router)
                 }
                 // 成功->把信息存入vuex
-                vm.$store.commit('userInfo', {user: result.userMap, router})
+                vm.$store.commit('userInfo', {user: result.userInfo, router})
+                vm.$store.commit('basicInfo', result.basicInfoList)
               } else if (result.status.value === '0') {
                 // 失败->
                 vm.$http.defaults.headers.common['Authorization'] = ''
@@ -127,38 +126,6 @@ export default {
       this.$http.defaults.headers.common['Authorization'] = ''
       window.localStorage.clear()
       location.href = '/'
-    },
-    selectStudentUserinfo (router) { // 查询个人基本信息
-      this.$http.post(`${router}getBasicInfo.do`).then(
-        response => {
-          let result = response.data
-          this.student = result.student
-          this.team_name = result.team_name
-          // 把信息放到vuex中
-          this.$store.commit('basicInfo', {student: result.student, team_name: result.team_name})
-          console.log('UserInfo' + result.student)
-        }
-      ).catch(
-        error => {
-          console.log(error)
-          console.log('查询个人信息错啦')
-        }
-      )
-    },
-    selectTeacherUserinfo (router) { // 查询老师个人基本信息
-      this.$http.post(`${router}getBasicInfo.do`).then(
-        response => {
-          let result = response.data
-          console.log(result)
-          // 把信息放到vuex中
-          this.$store.commit('tBasicInfo', result)
-        }
-      ).catch(
-        error => {
-          console.log(error)
-          console.log('查询个人信息错啦')
-        }
-      )
     }
   },
   /**
