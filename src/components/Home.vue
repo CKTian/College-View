@@ -97,6 +97,7 @@ export default {
                 } else if (result.loginInfo.userinfo.role_id === 2) {
                   router = '/home/StudentController/'
                 }
+                console.log(result.basicInfoList)
                 // 成功->把信息存入vuex
                 vm.$store.commit('userInfo', {user: result.loginInfo.userinfo, router})
                 vm.$store.commit('basicInfo', result.basicInfoList)

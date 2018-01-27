@@ -93,7 +93,6 @@ export default {
     this.$http.post('/home/NavController/selectNav.do')
     .then(res => {
       // 回来加上样式数据,isShowChild,maxHeight
-      console.log(res)
       // 判断状态
       if (res.data.status.value === '1') {
         res.data.newNavlist.forEach(value => {

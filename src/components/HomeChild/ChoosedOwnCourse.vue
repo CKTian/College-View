@@ -42,6 +42,13 @@ export default {
         response => {
           let result = response.data
           if (result.value === '1') {
+            this.multipleSelection.forEach(item => {
+              this.tableData.forEach((showItem, index) => {
+                if (item.id === showItem.id) {
+                  this.tableData.splice(index, 1)
+                }
+              })
+            })
             this.$notify({
               title: 'ok~',
               message: '删除成功！',

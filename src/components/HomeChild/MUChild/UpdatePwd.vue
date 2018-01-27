@@ -26,6 +26,9 @@ export default {
     // 获取用户基本信息的用户名
     getUserBasic () {
       return this.$store.state.BasicInfo.basicInfo[2].value
+    },
+    getUser () {
+      return this.$store.state.User
     }
   },
   methods: {
@@ -35,7 +38,7 @@ export default {
     changePwd () { // 更改密码
       // 判断两次的密码是否一致
       // 根据id 去修改
-      this.$http.post('/home/StudentController/updatePwd.do', {pwd: this.newPwd}).then(
+      this.$http.post(`${this.getUser.router}updatePwd.do`, {pwd: this.newPwd}).then(
         response => {
           if (response.data.value === '1') {
             location.href = '/'
