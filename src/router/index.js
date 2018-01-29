@@ -20,6 +20,8 @@ import ChoosedOwnCourse from '@/components/HomeChild/ChoosedOwnCourse'
 import AllTeacher from '@/components/HomeChild/AllTeacher'
 // 老师查看所带班级的学生的信息
 import ManageStuInfo from '@/components/HomeChild/ManageStuInfo'
+// 老师查看所带班级的学生的选课情况
+import ShowOwnStuChoosed from '@/components/HomeChild/ShowOwnStuChoosed'
 Vue.use(Router)
 
 export default new Router({
@@ -72,6 +74,11 @@ export default new Router({
         path: '/home/ManageStuInfo',
         name: 'ManageStuInfo',
         component: ManageStuInfo
+      },
+      {
+        path: '/home/ShowOwnStuChoosed',
+        name: 'ShowOwnStuChoosed',
+        component: ShowOwnStuChoosed
       }]
     }
   ]
