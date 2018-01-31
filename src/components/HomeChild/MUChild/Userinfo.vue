@@ -35,29 +35,10 @@
 export default {
   data () {
     return {
-      // iconHref: '',
-      // account: '',
-      // gender: '',
-      // student: {
-      //   id: '',
-      //   user_id: '',
-      //   name: '',
-      //   team_id: '',
-      //   tel: '',
-      //   reward: '',
-      //   point: ''
-      // },
-      // team_name: ''
     }
   },
   components: {},
   computed: {
-    // getUser () {
-    //   // 这里我们渲染图片
-    //   this.changeHeadIcon(this.$store.state.User.role_id)
-    //   // 获取vuex中存储的值
-    //   return this.$store.state.User
-    // }
     getUserBasic () {
       return this.$store.state.BasicInfo.basicInfo
     }

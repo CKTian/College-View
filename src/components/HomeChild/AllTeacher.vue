@@ -7,7 +7,7 @@
       <el-table-column prop="name" label="教师" width="180"></el-table-column>
       <el-table-column prop="team.name" label="所带班级" width="180"></el-table-column>
       <el-table-column prop="str" label="所受课程"></el-table-column>
-      </el-table>
+    </el-table>
   </div>
 </template>
 
