@@ -63,9 +63,6 @@ export default {
     this.$http.post('/home/StudentController/selectAllCourse.do').then(
       response => {
         let result = response.data
-        // result.forEach(value => {
-        //   value.isActive = false
-        // })
         this.tableData = result
       }
     ).catch(

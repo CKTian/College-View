@@ -5,7 +5,7 @@
     <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" style="width: 90%" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="name" label="姓名" width="120"></el-table-column>
-      <el-table-column prop="user.gender" label="性别" width="120"></el-table-column>
+      <el-table-column prop="user.gender" label="性别" width="120" :formatter="toChinese"></el-table-column>
       <el-table-column prop="tel" label="电话" ></el-table-column>
       <el-table-column prop="reward" label="奖惩" ></el-table-column>
       <el-table-column prop="point" label="绩点" ></el-table-column>
@@ -78,6 +78,16 @@ export default {
     }
   },
   methods: {
+    toChinese (row, column, cellValue) {
+      switch (cellValue) {
+        case 0:
+          return '男'
+        case 1:
+          return '女'
+        default:
+          return '未设置'
+      }
+    },
     toggleSelection (rows) {
       if (rows) {
         rows.forEach(row => {
