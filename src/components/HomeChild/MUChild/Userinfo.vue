@@ -14,20 +14,7 @@
     
     <i class="iconfont icon-icon11"></i>
     <el-button class="updatePwdButton" type="text" @click="toShowMUChild('/#/home/ManageUserinfo/UpdatePwd')">修改密码</el-button>
-    <el-button class="updateInfoButton" type="text" @click="toShowMUChild('/#/home/ManageUserinfo/UpdateBasicInfo')">修改个人</el-button>
-    <div class="basicInfo">
-      <!-- <p>姓名：{{getBasicInfo.name}}</p>
-      <p>用户名：{{getUser.account}}</p>
-      <p>班级: {{getBasicInfo.team_name}}</p>
-      <p>性别：{{getGender}}</p>
-      <p>电话：{{getBasicInfo.tel}}</p>
-      <p>奖惩：{{getBasicInfo.reward}}</p>
-      <p>学分：{{getBasicInfo.point}}</p> -->
-      <p></p>
-    </div> 
-    <div>
-      
-    </div>
+    <el-button v-if="getUser.role_id !== 0" class="updateInfoButton" type="text" @click="toShowMUChild('/#/home/ManageUserinfo/UpdateBasicInfo')">修改个人</el-button>
   </div>
 </template>
 
@@ -41,21 +28,12 @@ export default {
   computed: {
     getUserBasic () {
       return this.$store.state.BasicInfo.basicInfo
+    },
+    getUser () {
+      return this.$store.state.User
     }
   },
   methods: {
-    // changeHeadIcon (roleId) { // 根据权限显示头像
-    //   if (roleId === 0) {
-    //     // 超级管理员
-    //     this.iconHref = '#icon-lingdao'
-    //   } else if (roleId === 1) {
-    //     // 老师
-    //     this.iconHref = '#icon-nvshi'
-    //   } else if (roleId === 2) {
-    //     // 同学
-    //     this.iconHref = '#icon-nvtongxue'
-    //   }
-    // },
     toShowMUChild (MUChildHref) {
       location.href = MUChildHref
     }

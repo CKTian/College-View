@@ -25,7 +25,10 @@ export default {
   computed: {
     // 获取用户基本信息的用户名
     getUserBasic () {
-      return this.$store.state.BasicInfo.basicInfo[2].value
+      if (this.$store.state.BasicInfo.basicInfo.length !== 0) {
+        return this.$store.state.BasicInfo.basicInfo[2].value
+      }
+      return ''
     },
     getUser () {
       return this.$store.state.User

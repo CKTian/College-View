@@ -24,6 +24,8 @@ import ManageStuInfo from '@/components/HomeChild/ManageStuInfo'
 import ShowOwnStuChoosed from '@/components/HomeChild/ShowOwnStuChoosed'
 // 老师录入成绩
 import InsertScore from '@/components/HomeChild/InsertScore'
+// 查看登录老师所教课的课程表
+import ShowTeacherSchedule from '@/components/HomeChild/ShowTeacherSchedule'
 Vue.use(Router)
 
 export default new Router({
@@ -86,6 +88,11 @@ export default new Router({
         path: '/home/InsertScore',
         name: 'InsertScore',
         component: InsertScore
+      },
+      {
+        path: '/home/ShowTeacherSchedule',
+        name: 'ShowTeacherSchedule',
+        component: ShowTeacherSchedule
       }]
     }
   ]
