@@ -1,7 +1,8 @@
 <!-- 查看全部老师信息 -->
 <template>
   <div class="kuang">
-    <i class="iconfont icon-vertical_line"></i>查看全部老师
+    <i class="iconfont icon-vertical_line"></i>
+    <span>查看全部老师</span>
     <el-table :data="tableData" style="width: 100%">
       <el-table-column label="编号" type="index" :index="indexMethod"></el-table-column>
       <el-table-column prop="name" label="教师" width="180"></el-table-column>

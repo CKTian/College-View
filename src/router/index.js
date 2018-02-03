@@ -26,6 +26,8 @@ import ShowOwnStuChoosed from '@/components/HomeChild/ShowOwnStuChoosed'
 import InsertScore from '@/components/HomeChild/InsertScore'
 // 查看登录老师所教课的课程表
 import ShowTeacherSchedule from '@/components/HomeChild/ShowTeacherSchedule'
+// 超级管理员管理普通管理员（老师）
+import ManageTeacher from '@/components/HomeChild/ManageTeacher'
 Vue.use(Router)
 
 export default new Router({
@@ -93,6 +95,11 @@ export default new Router({
         path: '/home/ShowTeacherSchedule',
         name: 'ShowTeacherSchedule',
         component: ShowTeacherSchedule
+      },
+      {
+        path: '/home/ManageTeacher',
+        name: 'ManageTeacher',
+        component: ManageTeacher
       }]
     }
   ]
