@@ -30,6 +30,8 @@ import ShowTeacherSchedule from '@/components/HomeChild/ShowTeacherSchedule'
 import ManageTeacher from '@/components/HomeChild/ManageTeacher'
 // 超级管理员管理全部课程
 import ManageCourse from '@/components/HomeChild/ManageCourse'
+// 超级管理员管理全部班级
+import ManageTeam from '@/components/HomeChild/ManageTeam'
 Vue.use(Router)
 
 export default new Router({
@@ -107,6 +109,11 @@ export default new Router({
         path: '/home/ManageCourse',
         name: 'ManageCourse',
         component: ManageCourse
+      },
+      {
+        path: '/home/ManageTeam',
+        name: 'ManageTeam',
+        component: ManageTeam
       }]
     }
   ]
