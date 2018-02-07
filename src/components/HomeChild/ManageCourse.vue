@@ -212,7 +212,21 @@ export default {
         this.$http.post(`${this.getUser.router}insertOneCourse.do`, {info: this.form}).then(
           response => {
             let result = response.data
-            console.log(result)
+            if (result.value === '0' || result.value === '2') {
+              this.$notify({
+                title: 'notice',
+                message: result.message,
+                type: 'warning'
+              })
+            } else if (result.value === '1') {
+              this.$notify({
+                title: 'success',
+                message: result.message,
+                type: 'success'
+              })
+              this.InsertdialogTableVisible = false
+              this.showAll()
+            }
           }
         ).catch(
           error => {
@@ -221,6 +235,27 @@ export default {
           }
         )
       }
+    },
+    deleteOneCourseInfo (index, tableData) { // 删除一条课程信息
+      let courseId = tableData[index].id
+      this.$http.post(`${this.getUser.router}deleteOneCourse.do`, {info: courseId}).then(
+        response => {
+          let result = response.data
+          if (result.value === '1') {
+            this.$notify({
+              title: 'ok~',
+              message: result.message,
+              type: 'success'
+            })
+            this.showAll()
+          }
+        }
+      ).catch(
+        error => {
+          console.log(error)
+          console.log('删除一条课程出错了')
+        }
+      )
     }
   },
   watch: {
