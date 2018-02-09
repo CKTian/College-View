@@ -18,7 +18,7 @@ import AllCourse from '@/components/HomeChild/AllCourse'
 import ChoosedOwnCourse from '@/components/HomeChild/ChoosedOwnCourse'
 // 查看所有老师的信息
 import AllTeacher from '@/components/HomeChild/AllTeacher'
-// 老师查看所带班级的学生的信息
+// 管理所带班级的学生的信息
 import ManageStuInfo from '@/components/HomeChild/ManageStuInfo'
 // 老师查看所带班级的学生的选课情况
 import ShowOwnStuChoosed from '@/components/HomeChild/ShowOwnStuChoosed'

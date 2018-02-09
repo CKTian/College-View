@@ -2,19 +2,19 @@
 <template>
   <div class="kuang">
     <i class="iconfont icon-vertical_line"></i>班级管理
-    <el-table :data="tableData" style="width: 45%" highlight-current-row @row-click="manageStu">
+    <el-table :data="tableData" style="width:100%" highlight-current-row @row-click="manageStu">
       <el-table-column label="编号" type="index" :index="indexMethod"></el-table-column>
-      <el-table-column prop="teamName" label="班级名称" width="120"></el-table-column>
-      <el-table-column prop="teacherName" label="班主任" width="120"></el-table-column>
+      <el-table-column prop="teamName" label="班级名称" ></el-table-column>
+      <el-table-column prop="teacherName" label="班主任"></el-table-column>
       <el-table-column @row-click="manageStu" prop="countStu" label="班级人数" show-overflow-tooltip></el-table-column>
       <el-table-column label="操作" >
         <template slot-scope="scope">
           <i class="iconfont icon-icon11" @click.stop="forUpdateOnTeamInfo(scope.$index,tableData)"></i>&nbsp;
-          <i class="iconfont icon-icon12" @click="deleteOneTeamInfo(scope.$index,tableData)"></i>
+          <i class="iconfont icon-icon12" @click.stop="deleteOneTeamInfo(scope.$index,tableData)"></i>
         </template>
       </el-table-column>
     </el-table>
-    <el-button @click="forInsertTeam()" class="checkin" plain><i class="iconfont icon-bianji"></i>&nbsp;增加一门课程</el-button>
+    <el-button @click="forInsertTeam()" class="checkin" plain><i class="iconfont icon-bianji"></i>&nbsp;增加一个班级</el-button>
     <!--模态框部分  查看一个班级中的同学-->
     <el-dialog title="班级学生" :visible.sync="dialogTableVisible">
       <el-tag v-for="stu in stus" :key="stu.name"  type="info" color="#2BC4B7" style="color:#fff">
@@ -41,6 +41,18 @@
         <el-button type="primary" @click="updateOneTeamInfo()">修 改</el-button>
       </div>
     </el-dialog>
+    <!--增加班级信息 模态框部分-->
+    <el-dialog title="增加班级" :visible.sync=" InsertdialogTableVisible">
+      <el-form :model="form">
+        <el-form-item  label="班级名" :label-width="formLabelWidth">
+          <el-input v-model="form.teamName" auto-complete="off"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="InsertdialogTableVisible = false">取 消</el-button>
+        <el-button type="primary" @click="insertOneTeamInfo()">增 加</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -57,6 +69,7 @@ export default {
       stus: [],
       form: {
         teamName: '',
+        teamId: '',
         teacherId: '',
         teacherName: '',
         countStu: ''
@@ -143,12 +156,76 @@ export default {
               type: 'success'
             })
             this.showAll()
+          } else if (result.value === '0') {
+            this.$notify({
+              title: 'notice',
+              message: result.message,
+              type: 'warning'
+            })
           }
         }
       ).catch(
         error => {
           console.log(error)
           console.log('修改一个班级的信息出错')
+        }
+      )
+    },
+    forInsertTeam () { // 为了增加一个班级的信息
+      this.form = {
+        teamName: '',
+        teacherId: '',
+        teacherName: '',
+        countStu: ''
+      }
+      this.InsertdialogTableVisible = true
+    },
+    insertOneTeamInfo () { // 增加一条信息
+      this.$http.post(`${this.getUser.router}insertOneTeam.do`, {info: this.form}).then(
+        response => {
+          let result = response.data
+          if (result.vaule === '0') {
+            this.$notify({
+              title: 'notice',
+              message: result.message,
+              type: 'warning'
+            })
+          } else if (result.value === '1') {
+            this.InsertdialogTableVisible = false
+            this.$notify({
+              title: 'ok~',
+              message: result.message,
+              type: 'success'
+            })
+            this.showAll()
+          }
+        }
+      ).catch(
+        error => {
+          console.log(error)
+          console.log('增加一个班级出错了')
+        }
+      )
+    },
+    deleteOneTeamInfo (index, tableData) { // 删除一条班级的信息
+      this.form.teamId = tableData[index].teamId
+      this.form.teacherId = tableData[index].teacherId
+      this.$http.post(`${this.getUser.router}deleteOneTeam.do`, {info: this.form}).then(
+        response => {
+          let result = response.data
+          if (result.value === '1') {
+            this.$notify({
+              title: 'ok~',
+              message: result.message,
+              type: 'success'
+            })
+            this.showAll()
+          }
+        }
+      ).catch(
+        error => {
+          console.log(error)
+          console.log('删除一条班级信息出错啦')
         }
       )
     }

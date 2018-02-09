@@ -1,6 +1,7 @@
 <!-- 登录者查看所有所带班级的学生的信息 -->
 <template>
   <div class="kuang">
+    <ShowStuInfo :tableData="tableData"></ShowStuInfo>
     <i class="iconfont icon-vertical_line"></i>查看{{getTeamName}}所有学生信息
     <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" style="width: 90%" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"></el-table-column>
@@ -43,6 +44,7 @@
 </template>
 
 <script>
+import ShowStuInfo from '@/components/HomeChild/MSChild/ShowStuInfo'
 export default {
   data () {
     return {
@@ -60,7 +62,9 @@ export default {
       }
     }
   },
-  components: {},
+  components: {
+    ShowStuInfo
+  },
   computed: {
     getTeamName: {
       get: function () {

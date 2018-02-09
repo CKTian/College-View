@@ -2,10 +2,10 @@
 <template>
   <div class="kuang">
     <i class="iconfont icon-vertical_line"></i>课程管理
-    <el-table :data="tableData" style="width: 45%">
+    <el-table :data="tableData" style="width: 100%">
       <el-table-column label="编号" type="index" :index="indexMethod"></el-table-column>
-      <el-table-column prop="name" label="课程名" width="120"></el-table-column>
-      <el-table-column prop="teacher.name" label="任课老师" width="120"></el-table-column>
+      <el-table-column prop="name" label="课程名"></el-table-column>
+      <el-table-column prop="teacher.name" label="任课老师" ></el-table-column>
       <el-table-column prop="time" label="上课时间" show-overflow-tooltip></el-table-column>
       <el-table-column label="操作" >
         <template slot-scope="scope">
