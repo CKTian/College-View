@@ -28,12 +28,12 @@
         </el-form-item>
         <el-form-item label="性别" :label-width="formLabelWidth">
           <el-select v-model="form.gender" placeholder="请选择性别">
-            <el-option label="男" value="0"></el-option>
-            <el-option label="女" value="1"></el-option>
+            <el-option label="男" :value="0"></el-option>
+            <el-option label="女" :value="1"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="所带班级" :label-width="formLabelWidth">
-          <el-select v-model="form.teamName">
+          <el-select v-model="form.teamId">
             <el-option v-for="(item, index) in team" v-if="item.id !== '0000'" :key="item.id" :label="item.name":value="item.id"></el-option>
           </el-select>
         </el-form-item>
@@ -44,7 +44,7 @@
       </div>
     </el-dialog>
     <!--增加信息模态框部分-->
-    <el-dialog title="修改老师信息" :visible.sync="InsertdialogTableVisible">
+    <el-dialog title="增加老师信息" :visible.sync="InsertdialogTableVisible">
       <el-form :model="form">
         <el-form-item  label="姓名" :label-width="formLabelWidth">
           <el-input v-model="form.name" auto-complete="off"></el-input>
@@ -54,12 +54,12 @@
         </el-form-item>
         <el-form-item label="性别" :label-width="formLabelWidth">
           <el-select v-model="form.gender" placeholder="请选择性别">
-            <el-option label="男" value="0"></el-option>
-            <el-option label="女" value="1"></el-option>
+            <el-option label="男" :value="0"></el-option>
+            <el-option label="女" :value="1"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="所带班级" :label-width="formLabelWidth">
-          <el-select v-model="form.teamName">
+          <el-select v-model="form.teamId">
             <el-option v-for="(item, index) in team" v-if="item.id !== '0000'" :key="item.id" :label="item.name":value="item.id"></el-option>
           </el-select>
         </el-form-item>
@@ -137,7 +137,7 @@ export default {
       this.form.name = tableData[index].teacherName
       this.form.gender = tableData[index].gender
       this.form.account = tableData[index].account
-      this.form.teamName = tableData[index].teamName
+      this.form.teamId = tableData[index].teamId
       this.form.userId = tableData[index].userId
       // 查询出所有班级名称
       this.$http.post(`${this.getUser.router}selectAllTeamInfo.do`).then(
@@ -167,6 +167,12 @@ export default {
               type: 'success'
             })
             this.showAllTeacher() // 重新加载刷新
+          } else if (result.value === '0') {
+            this.$notify({
+              title: 'notice',
+              message: result.message,
+              type: 'warning'
+            })
           }
         }
       ).catch(
@@ -202,11 +208,11 @@ export default {
     },
     insertTeacher () {
       // 增加一个老师
-      if (this.form.name === '' || this.form.gender === '' || this.form.account === '' || this.form.teamName === '') {
+      if (this.form.name === '' || this.form.gender === '' || this.form.account === '' || this.form.teamId === '') {
         this.$notify({
           title: 'notice',
           message: '请将信息填写完整！',
-          type: 'success'
+          type: 'warning'
         })
       } else {
         this.$http.post(`${this.getUser.router}insertTeacher.do`, {info: this.form}).then(

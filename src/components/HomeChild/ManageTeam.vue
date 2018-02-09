@@ -6,10 +6,10 @@
       <el-table-column label="编号" type="index" :index="indexMethod"></el-table-column>
       <el-table-column prop="teamName" label="班级名称" ></el-table-column>
       <el-table-column prop="teacherName" label="班主任"></el-table-column>
-      <el-table-column @row-click="manageStu" prop="countStu" label="班级人数" show-overflow-tooltip></el-table-column>
+      <el-table-column  prop="countStu" label="班级人数" show-overflow-tooltip></el-table-column>
       <el-table-column label="操作" >
         <template slot-scope="scope">
-          <i class="iconfont icon-icon11" @click.stop="forUpdateOnTeamInfo(scope.$index,tableData)"></i>&nbsp;
+          <i class="iconfont icon-icon11" @click.stop="forUpdateOneTeamInfo(scope.$index,tableData)"></i>&nbsp;
           <i class="iconfont icon-icon12" @click.stop="deleteOneTeamInfo(scope.$index,tableData)"></i>
         </template>
       </el-table-column>
@@ -121,7 +121,7 @@ export default {
         }
       )
     },
-    forUpdateOnTeamInfo (index, tableData) { // 为了修改一个课程
+    forUpdateOneTeamInfo (index, tableData) { // 为了修改一个课程
       this.form.teamName = tableData[index].teamName
       this.form.teamId = tableData[index].teamId
       this.form.teacherId = tableData[index].teacherId
