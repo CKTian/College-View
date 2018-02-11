@@ -249,6 +249,26 @@ export default {
           }
         )
       }
+    },
+    deleteOneStuInfo (index, tableData) { // 删除一个学生的信息
+      this.$http.post(`${this.getUser.router}deleteOneStu.do`, {info: tableData[index]}).then(
+        response => {
+          let result = response.data
+          if (result.value === '1') {
+            this.$notify({
+              title: 'notice',
+              message: result.message,
+              type: 'success'
+            })
+            this.$emit('fresh', this.getTeamName)
+          }
+        }
+      ).catch(
+        error => {
+          console.log(error)
+          console.log('删除一个学生出错了')
+        }
+      )
     }
   }
 }
